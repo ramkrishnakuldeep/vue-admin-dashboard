@@ -10,11 +10,10 @@ const myMenus = ref(menus)
 const router = useRouter();
 
 const onMenuClick = (menu: IMenu) => {
-  console.log('dddd', menu);
-
   menu.active = !menu.active;
-  router.push({ name: menu.route, params: menu.params });
-
+  if (menu.params) {
+    router.push({ name: menu.route, params: menu.params });
+  }
 }
 
 

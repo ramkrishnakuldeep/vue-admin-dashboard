@@ -12,7 +12,6 @@ const rolePermissions = computed(() => store.state.rolePermissions);
 const roleForm = ref(rolePermissions.value[props.role]);
 
 const submitConfig = () => {
-  console.log('roleForm ', roleForm);
   store.dispatch('SET_ROLE', { role: props.role, data: roleForm.value });
 }
 

@@ -16,7 +16,7 @@ const menuTabs = (): IMenu[] => {
       selected: false,
       route: RouteType.USERS,
       roles: [ROLES.ADMIN, ROLES.ROOT, ROLES.VENDOR],
-      params: null,
+      params: undefined,
       childrens: [],
     },
     {
@@ -27,7 +27,7 @@ const menuTabs = (): IMenu[] => {
       type: MENUS.ADMIN,
       route: RouteType.ADMIN,
       roles: [ROLES.ADMIN, ROLES.ROOT],
-      params: null,
+      params: undefined,
       childrens: [],
     },
     {
@@ -38,7 +38,7 @@ const menuTabs = (): IMenu[] => {
       active: false,
       route: RouteType.PROJECTS,
       roles: [ROLES.USER],
-      params: null,
+      params: undefined,
       childrens: projectMenus(),
     },
     {
@@ -49,7 +49,7 @@ const menuTabs = (): IMenu[] => {
       type: MENUS.VENDORS,
       route: RouteType.VENDORS,
       roles: [ROLES.VENDOR],
-      params: null,
+      params: undefined,
       childrens: vendorMenus(),
     },
     {
@@ -58,7 +58,7 @@ const menuTabs = (): IMenu[] => {
       selected: false,
       active: false,
       type: MENUS.ROLES,
-      params: null,
+      params: undefined,
       route: RouteType.ROLES,
       roles: [ROLES.ADMIN, ROLES.ROOT],
       childrens: roleMenus(),
@@ -71,7 +71,7 @@ const menuTabs = (): IMenu[] => {
       type: MENUS.LOGS,
       roles: [ROLES.ADMIN, ROLES.ROOT, ROLES.VENDOR, ROLES.USER],
       route: RouteType.LOGS,
-      params: null,
+      params: undefined,
       childrens: [],
     },
   ]

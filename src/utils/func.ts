@@ -10,13 +10,10 @@ export const getMenus = ({
   permissions: { [key in ROLES]: Record<MENUS, permissions> }
   roles: ROLES[]
 }) => {
-  console.log('permissions ', permissions, 'roles ', roles)
-
   const menuKeys: MENUS[] = []
 
   for (let j = 0; j < roles.length; j++) {
     const rolePermissions = permissions[roles[j]]
-    console.log('rolePermissions', rolePermissions)
 
     for (const key in rolePermissions) {
       if (Object.prototype.hasOwnProperty.call(rolePermissions, key)) {
@@ -27,8 +24,6 @@ export const getMenus = ({
       }
     }
   }
-
-  console.log('menuKeys ', menuKeys)
 
   const mainMenus = [...menuTabs()]
 

@@ -13,12 +13,10 @@ export default {
     state.users.push(payload)
   },
   UPDATE_ROLE: (state: State, payload: { role: ROLES; data: Record<MENUS, permissions> }) => {
-    console.log({ role: payload.role, data: payload.data })
     state.rolePermissions[payload.role] = payload.data
     state.menus = getMenus({ permissions: state.rolePermissions, roles: [payload.role] })
   },
   SET_USER: (state: State, payload: User) => {
-    console.log(payload)
     state.userInfo = payload
   },
   UPDATE_MENUS: (state: State, payload: ROLES[]) => {

@@ -1,5 +1,6 @@
 import type { Component } from 'vue'
 import type { MENUS, ROLES, RouteType } from './enum'
+import type { RouteParamsRawGeneric } from 'vue-router'
 
 export interface permissions {
   read: boolean
@@ -15,7 +16,7 @@ export interface IMenu {
   active: boolean
   childrens: IMenu[]
   roles: ROLES[]
-  params: object | null
+  params: RouteParamsRawGeneric | undefined
   route: RouteType
   selected: boolean
 }
