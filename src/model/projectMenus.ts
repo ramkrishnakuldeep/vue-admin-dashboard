@@ -1,4 +1,4 @@
-import { PROJECT_MENUS, RouteType } from '@/utils/enum'
+import { MENUS, ROLES, RouteType } from '@/utils/enum'
 import type { IMenu } from '@/utils/types'
 import { Position, Odometer, ChatSquare, PieChart } from '@element-plus/icons-vue'
 
@@ -7,10 +7,12 @@ export const projectMenus = (): IMenu[] => {
     {
       label: 'Telegram',
       icon: Position,
-      type: PROJECT_MENUS.PROJECT_TELEGRAM,
+      type: MENUS.PROJECT_TELEGRAM,
       active: false,
       selected: false,
       route: RouteType.PROJECTS,
+      params: { project: MENUS.PROJECT_TELEGRAM },
+      roles: [ROLES.USER],
       childrens: [],
     },
     {
@@ -18,8 +20,10 @@ export const projectMenus = (): IMenu[] => {
       icon: ChatSquare,
       active: false,
       selected: false,
-      type: PROJECT_MENUS.PROJECT_CHAT,
+      type: MENUS.PROJECT_CHAT,
       route: RouteType.PROJECTS,
+      params: { project: MENUS.PROJECT_CHAT },
+      roles: [ROLES.USER],
       childrens: [],
     },
     {
@@ -27,8 +31,10 @@ export const projectMenus = (): IMenu[] => {
       icon: Odometer,
       active: false,
       selected: false,
-      type: PROJECT_MENUS.PROJECT_ODOMETER,
+      type: MENUS.PROJECT_ODOMETER,
+      params: { project: MENUS.PROJECT_ODOMETER },
       route: RouteType.PROJECTS,
+      roles: [ROLES.USER],
       childrens: [],
     },
     {
@@ -36,8 +42,10 @@ export const projectMenus = (): IMenu[] => {
       icon: PieChart,
       active: false,
       selected: false,
-      type: PROJECT_MENUS.PROJECT_PIECHART,
+      type: MENUS.PROJECT_PIECHART,
       route: RouteType.PROJECTS,
+      roles: [ROLES.USER],
+      params: { project: MENUS.PROJECT_PIECHART },
       childrens: [],
     },
   ]

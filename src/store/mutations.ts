@@ -1,24 +1,35 @@
-import type { MENUS } from '@/utils/enum'
-import type { User } from '@/utils/types'
+import type { MENUS, ROLES } from '@/utils/enum'
+import { getMenus } from '@/utils/func'
+import type { permissions, State, User } from '@/utils/types'
 
 export default {
-  API_REQUEST: (state: any) => {
+  API_REQUEST: (state: State) => {
     state.loading = true
   },
-  API_ERROR: (state: any) => {
+  API_ERROR: (state: State) => {
     state.loading = false
   },
-  UPDATE_PERMISSIONS: (state: any, payload: MENUS[]) => {
-    state.menuPermissions = payload
-  },
-  ADD_USER: (state: any, payload: User) => {
+  ADD_USER: (state: State, payload: User) => {
     state.users.push(payload)
   },
-  UPDATE_USER: (state: any, payload: User) => {
+  UPDATE_ROLE: (state: State, payload: { role: ROLES; data: Record<MENUS, permissions> }) => {
+    console.log({ role: payload.role, data: payload.data })
+    state.rolePermissions[payload.role] = payload.data
+    state.menus = getMenus({ permissions: state.rolePermissions, roles: [payload.role] })
+  },
+  SET_USER: (state: State, payload: User) => {
+    console.log(payload)
+    state.userInfo = payload
+  },
+  UPDATE_MENUS: (state: State, payload: ROLES[]) => {
+    state.menus = getMenus({ permissions: state.rolePermissions, roles: payload })
+  },
+  UPDATE_USER: (state: State, payload: User) => {
     for (let index = 0; index < state.users.length; index++) {
       if (state.users[index].id === payload.id) {
         state.users[index] = payload
       }
     }
+    state.menus = getMenus({ permissions: state.rolePermissions, roles: payload.roles })
   },
 }

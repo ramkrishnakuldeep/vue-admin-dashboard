@@ -1,11 +1,12 @@
-import { MENUS, RouteType } from '@/utils/enum'
+import { MENUS, ROLES, RouteType } from '@/utils/enum'
 import type { IMenu } from '@/utils/types'
 
-import { Folder, Lock, Avatar, InfoFilled, Comment, Discount } from '@element-plus/icons-vue'
+import { Folder, Avatar, InfoFilled, Comment, Discount, Service } from '@element-plus/icons-vue'
 import { projectMenus } from './projectMenus'
 import { vendorMenus } from './vendorMenus'
+import { roleMenus } from './roleMenus'
 
-export const menuTabs = (): IMenu[] => {
+const menuTabs = (): IMenu[] => {
   return [
     {
       label: 'User',
@@ -14,6 +15,8 @@ export const menuTabs = (): IMenu[] => {
       active: false,
       selected: false,
       route: RouteType.USERS,
+      roles: [ROLES.ADMIN, ROLES.ROOT, ROLES.VENDOR],
+      params: null,
       childrens: [],
     },
     {
@@ -23,6 +26,8 @@ export const menuTabs = (): IMenu[] => {
       selected: false,
       type: MENUS.ADMIN,
       route: RouteType.ADMIN,
+      roles: [ROLES.ADMIN, ROLES.ROOT],
+      params: null,
       childrens: [],
     },
     {
@@ -32,16 +37,9 @@ export const menuTabs = (): IMenu[] => {
       selected: false,
       active: false,
       route: RouteType.PROJECTS,
+      roles: [ROLES.USER],
+      params: null,
       childrens: projectMenus(),
-    },
-    {
-      label: 'Permissions',
-      icon: Lock,
-      active: false,
-      selected: false,
-      type: MENUS.PERMISSIONS,
-      route: RouteType.PERMISSIONS,
-      childrens: [],
     },
     {
       label: 'Vendors',
@@ -50,7 +48,20 @@ export const menuTabs = (): IMenu[] => {
       active: false,
       type: MENUS.VENDORS,
       route: RouteType.VENDORS,
+      roles: [ROLES.VENDOR],
+      params: null,
       childrens: vendorMenus(),
+    },
+    {
+      label: 'Roles',
+      icon: Service,
+      selected: false,
+      active: false,
+      type: MENUS.ROLES,
+      params: null,
+      route: RouteType.ROLES,
+      roles: [ROLES.ADMIN, ROLES.ROOT],
+      childrens: roleMenus(),
     },
     {
       label: 'Logs',
@@ -58,8 +69,12 @@ export const menuTabs = (): IMenu[] => {
       selected: false,
       active: false,
       type: MENUS.LOGS,
+      roles: [ROLES.ADMIN, ROLES.ROOT, ROLES.VENDOR, ROLES.USER],
       route: RouteType.LOGS,
+      params: null,
       childrens: [],
     },
   ]
 }
+
+export default menuTabs

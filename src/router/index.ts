@@ -27,20 +27,31 @@ const router = createRouter({
           component: () => import('../components/AdminView.vue'),
         },
         {
-          path: '/projects',
+          path: '/projects/:project',
           name: RouteType.PROJECTS,
+          props: true,
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
           component: () => import('../components/ProjectsView.vue'),
         },
         {
-          path: '/vendors',
+          path: '/vendors/:vendor',
           name: RouteType.VENDORS,
+          props: true,
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
           component: () => import('../components/VendorsView.vue'),
+        },
+        {
+          path: '/roles/:role',
+          name: RouteType.ROLES,
+          props: true,
+          // route level code-splitting
+          // this generates a separate chunk (About.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import('../components/RoleView.vue'),
         },
         {
           path: '/users',
@@ -51,12 +62,12 @@ const router = createRouter({
           component: () => import('../components/UsersView.vue'),
         },
         {
-          path: '/permissions',
-          name: RouteType.PERMISSIONS,
+          path: '/logs',
+          name: RouteType.LOGS,
           // route level code-splitting
           // this generates a separate chunk (About.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import('../components/PermissionsView.vue'),
+          component: () => import('../components/LogsView.vue'),
         },
       ],
     },

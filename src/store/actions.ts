@@ -1,16 +1,20 @@
-import type { MENUS } from '@/utils/enum'
-import type { User } from '@/utils/types'
+import type { MENUS, ROLES } from '@/utils/enum'
+import type { permissions, User } from '@/utils/types'
 
 export default {
-  SET_PERMISSIONS: async ({ commit }: any, payload: MENUS[]) => {
-    commit('UPDATE_PERMISSIONS', payload)
-  },
   ADD_NEW_USER: async ({ commit }: any, payload: User) => {
     commit('ADD_USER', payload)
   },
   UPDATE_USER: async ({ commit }: any, payload: User) => {
-    console.log('actinn', payload)
-
     commit('UPDATE_USER', payload)
+  },
+  SET_ROLE: async ({ commit }: any, payload: { role: ROLES; data: Record<MENUS, permissions> }) => {
+    commit('UPDATE_ROLE', payload)
+  },
+  SET_MENUS: async ({ commit }: any, payload: ROLES) => {
+    commit('UPDATE_MENUS', payload)
+  },
+  SET_USER: async ({ commit }: any, payload: User) => {
+    commit('SET_USER', payload)
   },
 }

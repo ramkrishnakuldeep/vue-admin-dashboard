@@ -1,38 +1,7 @@
 <script setup lang="ts">
 import MenuView from '@/components/MenuView.vue';
-import { menuTabs } from '@/model/menuTabs';
-import store from '@/store';
-import type { IMenu } from '@/utils/types';
-import { computed } from 'vue';
-import { RouterView, useRouter } from 'vue-router';
+import { RouterView } from 'vue-router';
 
-const router = useRouter();
-
-const filteredMenus = computed(() => {
-  const menuPermissions = store.state.menuPermissions;
-  return menuTabs().filter((menu: IMenu) => {
-    if (menu.childrens.length === 0) {
-      return menuPermissions.includes(menu.type);
-    } else {
-      menu.childrens = menu.childrens.filter((subMenu: IMenu) => {
-        if (subMenu.childrens.length === 0) {
-          return menuPermissions.includes(subMenu.type);
-        } else {
-          subMenu.childrens = subMenu.childrens.filter((subSubMenu: IMenu) => {
-            return menuPermissions.includes(subSubMenu.type);
-          });
-          return subMenu.childrens.length !== 0 ? true : false;
-        }
-      });
-      return menu.childrens.length !== 0 ? true : false
-    }
-  });
-});
-
-const onMenuClick = (menu: IMenu) => {
-  console.log('fff', onMenuClick);
-  router.push({ name: menu.route });
-}
 
 </script>
 
@@ -40,7 +9,7 @@ const onMenuClick = (menu: IMenu) => {
   <main class="main-container">
     <header> Dashboard </header>
     <section class="main-content">
-      <MenuView :menus="filteredMenus" @click-menu="onMenuClick" />
+      <MenuView />
       <section class="route-container">
         <RouterView />
       </section>
@@ -73,7 +42,7 @@ const onMenuClick = (menu: IMenu) => {
 
 
     section.route-container {
-      width: 100%;
+      width: 75%;
       height: 100%;
       padding: 1rem 0 0;
     }

@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { Lock, User } from '@element-plus/icons-vue';
+import { Lock, Avatar } from '@element-plus/icons-vue';
 import logo from '/src/assets/logo.svg';
 import api from '@/api'
 import type { AxiosResponse } from 'axios';
 import { useRouter } from "vue-router";
-import { RouteType } from '@/utils/enum';
+import { computed } from 'vue';
+import store from '@/store';
+import type { User } from '@/utils/types';
 
 const router = useRouter();
 const userForm = reactive({
@@ -13,11 +15,17 @@ const userForm = reactive({
   password: '',
 });
 
+const users = computed(() => store.state.users);
+const menus = computed(() => store.state.menus);
+
 const onLoginClicked = () => {
   if (userForm.password && userForm.username) {
-
-    if (userForm.password === 'admin' && userForm.username === 'admin') {
-      router.push({ name: RouteType.MAIN });
+    const user: User[] = users.value.filter((user: User) => user.username === userForm.username)
+    if (user.length) {
+      store.dispatch('SET_MENUS', user[0].roles);
+      store.dispatch('SET_USER', user[0]);
+      const firstMenu = menus.value[0].childrens.length ? menus.value[0].childrens[0].childrens.length ? menus.value[0].childrens[0].childrens[0] : menus.value[0].childrens[0] : menus.value[0]
+      router.push({ name: firstMenu.route, params: firstMenu.params });
     } else {
       api.doLogin(userForm).then((response: AxiosResponse) => {
         console.log('response', response);
@@ -39,7 +47,7 @@ const onLoginClicked = () => {
       <el-form class="form-withdraw" :model="userForm" label-width="auto" @submit.prevent autocomplete="off">
         <el-form-item>
           <el-input style="width: 240px" v-model="userForm.username" type="text" placeholder="Username" clearable
-            :prefix-icon="User" />
+            :prefix-icon="Avatar" />
         </el-form-item>
         <el-form-item>
           <el-input style="width: 240px" v-model="userForm.password" type="password" placeholder="Password" clearable

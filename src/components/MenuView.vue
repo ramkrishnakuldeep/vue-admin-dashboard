@@ -1,16 +1,19 @@
 <script setup lang="ts">
+import store from '@/store';
 import type { IMenu } from '@/utils/types';
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-const props = defineProps<{ menus: Array<IMenu> }>();
-const emit = defineEmits(["clickMenu"]);
+const menus = computed(() => store.state.menus);
+const myMenus = ref(menus)
+const router = useRouter();
 
 const onMenuClick = (menu: IMenu) => {
   console.log('dddd', menu);
 
   menu.active = !menu.active;
-
-  emit('clickMenu', menu)
+  router.push({ name: menu.route, params: menu.params });
 
 }
 
@@ -19,7 +22,7 @@ const onMenuClick = (menu: IMenu) => {
 
 <template>
   <div class="menu-container">
-    <div class="menu" v-for="menu in props.menus" :key="menu.type">
+    <div class="menu" v-for="menu in myMenus" :key="menu.type">
       <div class="menu-item" @click="onMenuClick(menu)">
         <div class="name">
           <el-icon :size="20">
@@ -34,9 +37,9 @@ const onMenuClick = (menu: IMenu) => {
           </el-icon>
         </div>
       </div>
-      <div class="sub_menu-container">
+      <div class="sub_menu-container" v-if="menu.active">
         <div class="menu" v-for="subMenu in menu.childrens" :key="subMenu.type">
-          <div class="menu-item">
+          <div class="menu-item" @click="onMenuClick(subMenu)">
             <div class="name">
               <el-icon :size="20">
                 <component :is="subMenu.icon" />
@@ -50,9 +53,9 @@ const onMenuClick = (menu: IMenu) => {
               </el-icon>
             </div>
           </div>
-          <div class="sub_sub-container">
+          <div class="sub_sub-container" v-if="subMenu.active">
             <div class="menu" v-for="subSub in subMenu.childrens" :key="subSub.type">
-              <div class="menu-item">
+              <div class="menu-item" @click="onMenuClick(subSub)">
                 <div class="name">
                   <el-icon :size="20">
                     <component :is="subSub.icon" />
@@ -80,6 +83,8 @@ const onMenuClick = (menu: IMenu) => {
   padding: 10px;
   height: 100%;
   width: 350px;
+  flex: 1;
+  overflow: auto;
 
   .menu {
 

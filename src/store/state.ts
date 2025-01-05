@@ -1,4 +1,12 @@
-import { MENUS, PROJECT_MENUS, ROLES } from '@/utils/enum'
+import { ROLES } from '@/utils/enum'
+import { getMenus } from '@/utils/func'
+import {
+  adminPermissions,
+  rootPermissions,
+  userPermissions,
+  vendorPermissions,
+} from '@/utils/permissionData'
+import type { State } from '@/utils/types'
 import { uuid } from 'vue-uuid'
 
 export default {
@@ -7,24 +15,38 @@ export default {
     {
       username: 'admin',
       password: 'admin',
-      role: ROLES.ADMIN,
+      roles: [ROLES.ADMIN],
       id: uuid.v1(),
     },
     {
       username: 'root',
       password: 'root',
-      role: ROLES.ROOT,
+      roles: [ROLES.ROOT],
+      id: uuid.v1(),
+    },
+    {
+      username: 'vendor',
+      password: 'vendor',
+      roles: [ROLES.VENDOR],
+      id: uuid.v1(),
+    },
+    {
+      username: 'kuldeep',
+      password: 'kuldeep',
+      roles: [ROLES.USER, ROLES.ADMIN],
       id: uuid.v1(),
     },
   ],
-  menuPermissions: [
-    MENUS.USER,
-    MENUS.ADMIN,
-    MENUS.PERMISSIONS,
-    MENUS.LOGS,
-    MENUS.PROJECTS,
-    PROJECT_MENUS.PROJECT_ODOMETER,
-    PROJECT_MENUS.PROJECT_PIECHART,
-    MENUS.ROLES,
-  ],
-}
+  rolePermissions: {
+    [ROLES.ROOT]: rootPermissions(),
+    [ROLES.ADMIN]: adminPermissions(),
+    [ROLES.USER]: userPermissions(),
+    [ROLES.VENDOR]: vendorPermissions(),
+  },
+  userInfo: {
+    username: 'admin',
+    password: 'admin',
+    roles: [ROLES.ADMIN],
+  },
+  menus: getMenus({ permissions: { [ROLES.ADMIN]: adminPermissions() }, roles: [ROLES.ADMIN] }),
+} as State
