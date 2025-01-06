@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ROLES } from '@/utils/enum';
-import { Mic } from '@element-plus/icons-vue';
+import { Coordinate } from '@element-plus/icons-vue';
 
 </script>
 
@@ -10,7 +10,7 @@ import { Mic } from '@element-plus/icons-vue';
     <section>
       <div class="role" v-for="role in ROLES" :key="role">
         <el-icon>
-          <Mic />
+          <Coordinate />
         </el-icon>
         {{ role }}
       </div>
