@@ -1,8 +1,8 @@
 import { MENUS, ROLES, RouteType } from '@/utils/enum'
-import type { IMenu } from '@/utils/types'
+import type { IMenu } from '@/utils/interface'
 import { Position, Odometer, ChatSquare, PieChart } from '@element-plus/icons-vue'
 
-export const roleMenus = (): IMenu[] => {
+export const permissionMenus = (): IMenu[] => {
   return [
     {
       label: 'Admin',
@@ -11,8 +11,7 @@ export const roleMenus = (): IMenu[] => {
       active: false,
       selected: false,
       params: { role: ROLES.ADMIN },
-      route: RouteType.ROLES,
-      roles: [ROLES.ADMIN, ROLES.ROOT],
+      route: RouteType.PERMISSIONS,
       childrens: [],
     },
     {
@@ -22,8 +21,7 @@ export const roleMenus = (): IMenu[] => {
       selected: false,
       type: MENUS.ROLE_ROOT,
       params: { role: ROLES.ROOT },
-      route: RouteType.ROLES,
-      roles: [ROLES.ADMIN, ROLES.ROOT],
+      route: RouteType.PERMISSIONS,
       childrens: [],
     },
     {
@@ -33,8 +31,7 @@ export const roleMenus = (): IMenu[] => {
       selected: false,
       type: MENUS.ROLE_USER,
       params: { role: ROLES.USER },
-      route: RouteType.ROLES,
-      roles: [ROLES.ADMIN, ROLES.ROOT],
+      route: RouteType.PERMISSIONS,
       childrens: [],
     },
     {
@@ -44,8 +41,7 @@ export const roleMenus = (): IMenu[] => {
       selected: false,
       type: MENUS.ROLE_VENDOR,
       params: { role: ROLES.VENDOR },
-      route: RouteType.ROLES,
-      roles: [ROLES.ADMIN, ROLES.ROOT],
+      route: RouteType.PERMISSIONS,
       childrens: [],
     },
   ]

@@ -1,10 +1,18 @@
-import { MENUS, ROLES, RouteType } from '@/utils/enum'
-import type { IMenu } from '@/utils/types'
+import { MENUS, RouteType } from '@/utils/enum'
+import type { IMenu } from '@/utils/interface'
 
-import { Folder, Avatar, InfoFilled, Comment, Discount, Service } from '@element-plus/icons-vue'
+import {
+  Folder,
+  Avatar,
+  InfoFilled,
+  Comment,
+  Discount,
+  Service,
+  Rank,
+} from '@element-plus/icons-vue'
 import { projectMenus } from './projectMenus'
 import { vendorMenus } from './vendorMenus'
-import { roleMenus } from './roleMenus'
+import { permissionMenus } from './permissionMenus'
 
 const menuTabs = (): IMenu[] => {
   return [
@@ -15,7 +23,6 @@ const menuTabs = (): IMenu[] => {
       active: false,
       selected: false,
       route: RouteType.USERS,
-      roles: [ROLES.ADMIN, ROLES.ROOT, ROLES.VENDOR],
       params: undefined,
       childrens: [],
     },
@@ -26,7 +33,6 @@ const menuTabs = (): IMenu[] => {
       selected: false,
       type: MENUS.ADMIN,
       route: RouteType.ADMIN,
-      roles: [ROLES.ADMIN, ROLES.ROOT],
       params: undefined,
       childrens: [],
     },
@@ -37,7 +43,6 @@ const menuTabs = (): IMenu[] => {
       selected: false,
       active: false,
       route: RouteType.PROJECTS,
-      roles: [ROLES.USER],
       params: undefined,
       childrens: projectMenus(),
     },
@@ -48,20 +53,28 @@ const menuTabs = (): IMenu[] => {
       active: false,
       type: MENUS.VENDORS,
       route: RouteType.VENDORS,
-      roles: [ROLES.VENDOR],
       params: undefined,
       childrens: vendorMenus(),
     },
     {
       label: 'Roles',
-      icon: Service,
+      icon: Rank,
       selected: false,
       active: false,
       type: MENUS.ROLES,
       params: undefined,
       route: RouteType.ROLES,
-      roles: [ROLES.ADMIN, ROLES.ROOT],
-      childrens: roleMenus(),
+      childrens: [],
+    },
+    {
+      label: 'Permissions',
+      icon: Service,
+      selected: false,
+      active: false,
+      type: MENUS.PERMISSIONS,
+      params: undefined,
+      route: RouteType.PERMISSIONS,
+      childrens: permissionMenus(),
     },
     {
       label: 'Logs',
@@ -69,7 +82,6 @@ const menuTabs = (): IMenu[] => {
       selected: false,
       active: false,
       type: MENUS.LOGS,
-      roles: [ROLES.ADMIN, ROLES.ROOT, ROLES.VENDOR, ROLES.USER],
       route: RouteType.LOGS,
       params: undefined,
       childrens: [],

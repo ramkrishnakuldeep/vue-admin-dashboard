@@ -1,25 +1,25 @@
 <script setup lang="ts">
 import store from '@/store';
 import { MENUS, ROLES } from '@/utils/enum';
-import type { User } from '@/utils/types';
-import { CloseBold, Edit, SuccessFilled } from '@element-plus/icons-vue';
+import type { IUser } from '@/utils/interface';
+import { CloseBold, Edit, SuccessFilled, View } from '@element-plus/icons-vue';
 import { computed, reactive, ref } from 'vue';
 import { uuid } from 'vue-uuid'
 
 const users = computed(() => store.state.users);
-const rolePermissions = computed(() => store.state.rolePermissions[store.state.userInfo.roles[0]][MENUS.USER]);
+const rolePermissions = computed(() => store.state.userInfo.permissions[MENUS.USER]);
 const dialogVisible = ref(false);
 
-const isEdit = ref(users.value.map((user: User) => ({ [user.id]: false })));
+const isEdit = ref(users.value.map((user: IUser) => ({ [user.id]: false })));
 
-const userForm: User = reactive({
+const userForm: IUser = reactive({
   username: '',
   password: '',
   roles: [] as ROLES[],
   id: ''
 })
 
-const editUser = (user: User) => {
+const editUser = (user: IUser) => {
   for (const key in isEdit.value) {
     if (Object.prototype.hasOwnProperty.call(isEdit.value, key)) {
       isEdit.value[key] = false;
@@ -37,7 +37,7 @@ const clearForm = () => {
   userForm.password = ''
 }
 
-const updateUser = (user: User) => {
+const updateUser = (user: IUser) => {
   isEdit.value[user.id] = false;
   const params = user;
   for (const key in userForm) {
@@ -102,9 +102,14 @@ const createUser = () => {
                   </el-icon>
                 </button>
               </div>
-              <div v-else style="font-size: 24px">
+              <div v-else-if="rolePermissions.edit" style="font-size: 24px">
                 <el-icon @click="(e: Event) => editUser(user)">
                   <Edit :size="20" color="#409efc" />
+                </el-icon>
+              </div>
+              <div v-else style="font-size: 24px">
+                <el-icon>
+                  <View :size="20" color="#409efc" />
                 </el-icon>
               </div>
             </td>

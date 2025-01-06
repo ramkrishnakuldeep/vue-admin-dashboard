@@ -1,12 +1,12 @@
 import { ROLES } from '@/utils/enum'
-import { getMenus } from '@/utils/func'
+import { getMenus, getPermissions } from '@/utils/func'
 import {
   adminPermissions,
   rootPermissions,
   userPermissions,
   vendorPermissions,
 } from '@/utils/permissionData'
-import type { State } from '@/utils/types'
+import type { IState } from '@/utils/interface'
 import { uuid } from 'vue-uuid'
 
 export default {
@@ -47,6 +47,23 @@ export default {
     username: 'admin',
     password: 'admin',
     roles: [ROLES.ADMIN],
+    permissions: getPermissions({
+      permissions: {
+        [ROLES.ROOT]: rootPermissions(),
+        [ROLES.ADMIN]: adminPermissions(),
+        [ROLES.USER]: userPermissions(),
+        [ROLES.VENDOR]: vendorPermissions(),
+      },
+      roles: [ROLES.USER, ROLES.ADMIN],
+    }),
   },
-  menus: getMenus({ permissions: { [ROLES.ADMIN]: adminPermissions() }, roles: [ROLES.ADMIN] }),
-} as State
+  menus: getMenus({
+    permissions: {
+      [ROLES.ROOT]: rootPermissions(),
+      [ROLES.ADMIN]: adminPermissions(),
+      [ROLES.USER]: userPermissions(),
+      [ROLES.VENDOR]: vendorPermissions(),
+    },
+    roles: [ROLES.ADMIN],
+  }),
+} as IState

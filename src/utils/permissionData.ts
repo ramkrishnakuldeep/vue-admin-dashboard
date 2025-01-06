@@ -1,11 +1,12 @@
 import { MENUS } from './enum'
-import type { permissions } from './types'
+import type { IPermissions } from './interface'
 
-export const adminPermissions = (): Record<MENUS, permissions> => ({
+export const adminPermissions = (): Record<MENUS, IPermissions> => ({
   [MENUS.USER]: { read: true, edit: true, create: true, delete: true },
   [MENUS.ADMIN]: { read: true, edit: true, create: true, delete: true },
-  [MENUS.ROLES]: { read: true, edit: true, create: true, delete: true },
+  [MENUS.PERMISSIONS]: { read: true, edit: true, create: true, delete: true },
   [MENUS.LOGS]: { read: true, edit: true, create: true, delete: true },
+  [MENUS.ROLES]: { read: true, edit: false, create: false, delete: false },
   [MENUS.PROJECTS]: { read: false, edit: false, create: false, delete: false },
   [MENUS.VENDORS]: { read: true, edit: true, create: false, delete: false },
   [MENUS.VENDOR_ASIA]: { read: true, edit: true, create: false, delete: false },
@@ -26,11 +27,12 @@ export const adminPermissions = (): Record<MENUS, permissions> => ({
   [MENUS.ROLE_VENDOR]: { read: true, edit: true, create: true, delete: true },
 })
 
-export const rootPermissions = (): Record<MENUS, permissions> => ({
+export const rootPermissions = (): Record<MENUS, IPermissions> => ({
   [MENUS.USER]: { read: true, edit: true, create: false, delete: false },
   [MENUS.ADMIN]: { read: true, edit: true, create: true, delete: true },
-  [MENUS.ROLES]: { read: true, edit: true, create: true, delete: true },
+  [MENUS.PERMISSIONS]: { read: true, edit: true, create: true, delete: true },
   [MENUS.LOGS]: { read: true, edit: true, create: true, delete: true },
+  [MENUS.ROLES]: { read: true, edit: true, create: true, delete: true },
   [MENUS.PROJECTS]: { read: true, edit: true, create: true, delete: true },
   [MENUS.VENDORS]: { read: true, edit: true, create: true, delete: true },
   [MENUS.VENDOR_ASIA]: { read: true, edit: true, create: true, delete: true },
@@ -51,11 +53,12 @@ export const rootPermissions = (): Record<MENUS, permissions> => ({
   [MENUS.ROLE_VENDOR]: { read: true, edit: true, create: true, delete: true },
 })
 
-export const userPermissions = (): Record<MENUS, permissions> => ({
+export const userPermissions = (): Record<MENUS, IPermissions> => ({
   [MENUS.USER]: { read: false, edit: false, create: false, delete: false },
   [MENUS.ADMIN]: { read: false, edit: false, create: false, delete: false },
-  [MENUS.ROLES]: { read: false, edit: false, create: false, delete: false },
+  [MENUS.PERMISSIONS]: { read: false, edit: false, create: false, delete: false },
   [MENUS.LOGS]: { read: true, edit: true, create: true, delete: true },
+  [MENUS.ROLES]: { read: false, edit: false, create: false, delete: false },
   [MENUS.PROJECTS]: { read: true, edit: true, create: true, delete: true },
   [MENUS.VENDORS]: { read: false, edit: false, create: false, delete: false },
   [MENUS.VENDOR_ASIA]: { read: false, edit: false, create: false, delete: false },
@@ -76,11 +79,12 @@ export const userPermissions = (): Record<MENUS, permissions> => ({
   [MENUS.ROLE_VENDOR]: { read: false, edit: false, create: false, delete: false },
 })
 
-export const vendorPermissions = (): Record<MENUS, permissions> => ({
-  [MENUS.USER]: { read: true, edit: true, create: true, delete: true },
+export const vendorPermissions = (): Record<MENUS, IPermissions> => ({
+  [MENUS.USER]: { read: true, edit: false, create: false, delete: false },
   [MENUS.ADMIN]: { read: false, edit: false, create: false, delete: false },
-  [MENUS.ROLES]: { read: false, edit: false, create: false, delete: false },
+  [MENUS.PERMISSIONS]: { read: false, edit: false, create: false, delete: false },
   [MENUS.LOGS]: { read: true, edit: true, create: true, delete: true },
+  [MENUS.ROLES]: { read: false, edit: false, create: false, delete: false },
   [MENUS.PROJECTS]: { read: false, edit: false, create: false, delete: false },
   [MENUS.VENDORS]: { read: true, edit: true, create: true, delete: true },
   [MENUS.VENDOR_ASIA]: { read: true, edit: true, create: true, delete: true },

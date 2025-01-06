@@ -1,13 +1,13 @@
 import menuTabs from '@/model/menuTabs'
-import type { IMenu } from './types'
+import type { IMenu } from './interface'
 import { ROLES, type MENUS } from './enum'
-import type { permissions } from '@/utils/types'
+import type { IPermissions } from '@/utils/interface'
 
 export const getMenus = ({
   permissions,
   roles,
 }: {
-  permissions: { [key in ROLES]: Record<MENUS, permissions> }
+  permissions: { [key in ROLES]: Record<MENUS, IPermissions> }
   roles: ROLES[]
 }) => {
   const menuKeys: MENUS[] = []
@@ -46,4 +46,31 @@ export const getMenus = ({
       return subMenus.length !== 0
     }
   })
+}
+
+export const getPermissions = ({
+  permissions,
+  roles,
+}: {
+  permissions: { [key in ROLES]: Record<MENUS, IPermissions> }
+  roles: ROLES[]
+}) => {
+  const tempPer = roles.reduce((acc: any, role: ROLES) => {
+    const menuPermission: Record<MENUS, IPermissions> = permissions[role]
+    for (const menu in menuPermission) {
+      if (Object.prototype.hasOwnProperty.call(menuPermission, menu)) {
+        if (!acc[menu]) {
+          acc = JSON.parse(JSON.stringify(menuPermission))
+        } else {
+          for (const key in acc[menu]) {
+            if (Object.prototype.hasOwnProperty.call(acc[menu], key)) {
+              acc[menu][key] = acc[menu][key] || menuPermission[menu][key]
+            }
+          }
+        }
+      }
+    }
+    return acc
+  }, {})
+  return tempPer
 }

@@ -1,5 +1,5 @@
-import { MENUS, ROLES, RouteType } from '@/utils/enum'
-import type { IMenu } from '@/utils/types'
+import { MENUS, RouteType } from '@/utils/enum'
+import type { IMenu } from '@/utils/interface'
 import { Position, Odometer, ChatSquare, PieChart } from '@element-plus/icons-vue'
 
 export const projectMenus = (): IMenu[] => {
@@ -12,7 +12,6 @@ export const projectMenus = (): IMenu[] => {
       selected: false,
       route: RouteType.PROJECTS,
       params: { project: MENUS.PROJECT_TELEGRAM },
-      roles: [ROLES.USER],
       childrens: [],
     },
     {
@@ -23,7 +22,6 @@ export const projectMenus = (): IMenu[] => {
       type: MENUS.PROJECT_CHAT,
       route: RouteType.PROJECTS,
       params: { project: MENUS.PROJECT_CHAT },
-      roles: [ROLES.USER],
       childrens: [],
     },
     {
@@ -34,7 +32,6 @@ export const projectMenus = (): IMenu[] => {
       type: MENUS.PROJECT_ODOMETER,
       params: { project: MENUS.PROJECT_ODOMETER },
       route: RouteType.PROJECTS,
-      roles: [ROLES.USER],
       childrens: [],
     },
     {
@@ -44,7 +41,6 @@ export const projectMenus = (): IMenu[] => {
       selected: false,
       type: MENUS.PROJECT_PIECHART,
       route: RouteType.PROJECTS,
-      roles: [ROLES.USER],
       params: { project: MENUS.PROJECT_PIECHART },
       childrens: [],
     },

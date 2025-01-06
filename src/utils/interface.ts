@@ -2,7 +2,7 @@ import type { Component } from 'vue'
 import type { MENUS, ROLES, RouteType } from './enum'
 import type { RouteParamsRawGeneric } from 'vue-router'
 
-export interface permissions {
+export interface IPermissions {
   read: boolean
   edit: boolean
   create: boolean
@@ -15,23 +15,26 @@ export interface IMenu {
   type: MENUS
   active: boolean
   childrens: IMenu[]
-  roles: ROLES[]
   params: RouteParamsRawGeneric | undefined
   route: RouteType
   selected: boolean
 }
 
-export interface User {
+export interface IUser {
   username: string
   password: string
-  roles: ROLES[]
   id: string
+  roles: ROLES[]
 }
 
-export interface State {
+export interface IUserInfo extends IUser {
+  permissions: Record<MENUS, IPermissions>
+}
+
+export interface IState {
   loading: boolean
-  users: User[]
-  rolePermissions: Record<ROLES, Record<MENUS, permissions>>
-  userInfo: User
+  users: IUser[]
+  rolePermissions: Record<ROLES, Record<MENUS, IPermissions>>
+  userInfo: IUserInfo
   menus: IMenu[]
 }

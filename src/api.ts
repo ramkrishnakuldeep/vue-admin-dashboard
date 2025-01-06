@@ -13,7 +13,7 @@ http.interceptors.request.use((config) => {
 })
 
 http.interceptors.response.use(
-  (res: any) => {
+  (res) => {
     store.commit('API_SUCCESS', false)
     return Promise.resolve(res)
   },

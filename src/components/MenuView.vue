@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import store from '@/store';
-import type { IMenu } from '@/utils/types';
+import type { IMenu } from '@/utils/interface';
 import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
-import { computed, ref } from 'vue';
+import { computed, shallowRef } from 'vue';
 import { useRouter } from 'vue-router';
 
 const menus = computed(() => store.state.menus);
-const myMenus = ref(menus)
+const myMenus = shallowRef(menus)
 const router = useRouter();
 
 const onMenuClick = (menu: IMenu) => {
   menu.active = !menu.active;
-  if (menu.params) {
+
+  if (menu.childrens.length === 0) {
     router.push({ name: menu.route, params: menu.params });
   }
 }

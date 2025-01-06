@@ -1,47 +1,25 @@
 <script setup lang="ts">
-import store from '@/store';
-import { ROLES, MENUS } from '@/utils/enum';
-import { ref, watch } from 'vue';
-import { computed } from 'vue';
-
-
-const props = defineProps<{ role: ROLES }>();
-
-const rolePermissions = computed(() => store.state.rolePermissions);
-
-const roleForm = ref(rolePermissions.value[props.role]);
-
-const submitConfig = () => {
-  store.dispatch('SET_ROLE', { role: props.role, data: roleForm.value });
-}
-
-watch(() => [props.role], ([role]) => roleForm.value = rolePermissions.value[role]);
+import { ROLES } from '@/utils/enum';
+import { Mic } from '@element-plus/icons-vue';
 
 </script>
 
 <template>
-  <div class="permission-container">
-    <header> {{ role }} Permission config </header>
-    <div class="permission-content">
-
-      <div v-for="(val, key) in roleForm" :key="key" class="row">
-        <div class="name">
-          {{ Object.keys(MENUS)[Object.values(MENUS).indexOf(key)] }}
-        </div>
-        <div class="permission">
-          <div v-for="(value, col) in val" :key="col" class="item">
-            <div class="col-name">{{ col }}</div>
-            <el-checkbox v-model="val[col]"></el-checkbox>
-          </div>
-        </div>
+  <div class="role-container">
+    <header> Roles </header>
+    <section>
+      <div class="role" v-for="role in ROLES" :key="role">
+        <el-icon>
+          <Mic />
+        </el-icon>
+        {{ role }}
       </div>
-    </div>
-    <button class="submit" @click="submitConfig"> Submit</button>
+    </section>
   </div>
 </template>
 <style lang="scss" scoped>
-.permission-container {
-
+.role-container {
+  width: 100%;
   height: 100%;
   @include columnFlex();
   gap: 12px;
@@ -53,49 +31,19 @@ watch(() => [props.role], ([role]) => roleForm.value = rolePermissions.value[rol
     background-color: var(--header-background);
   }
 
-  .permission-content {
-    flex: 1;
-    overflow: auto;
+  section {
+    @include columnFlex();
+    gap: 10px;
 
-    .row {
+    .role {
       @include centeredFlex();
-      padding: 5px 10px;
-
-      &:nth-child(odd) {
-        background-color: var(--odd-background);
-      }
-
-      &:nth-child(even) {
-        background-color: var(--even-background);
-      }
-
+      gap: 5px;
       justify-content: flex-start;
-
-      .name {
-        width: 300px;
-      }
-
-      .permission {
-        width: 100%;
-        flex: 1;
-        @include centeredFlex();
-
-
-        .item {
-          @include columnFlex();
-          align-items: center;
-
-          .col-name {
-            text-transform: uppercase;
-          }
-        }
-      }
+      width: 100%;
+      background-color: var(--odd-background);
+      padding: 5px 20px;
+      text-transform: uppercase;
     }
-  }
-
-  .submit {
-    height: 40px;
-    cursor: pointer;
   }
 }
 </style>

@@ -7,7 +7,7 @@ import type { AxiosResponse } from 'axios';
 import { useRouter } from "vue-router";
 import { computed } from 'vue';
 import store from '@/store';
-import type { User } from '@/utils/types';
+import type { IUser } from '@/utils/interface';
 
 const router = useRouter();
 const userForm = reactive({
@@ -20,7 +20,7 @@ const menus = computed(() => store.state.menus);
 
 const onLoginClicked = () => {
   if (userForm.password && userForm.username) {
-    const user: User[] = users.value.filter((user: User) => user.username === userForm.username)
+    const user: IUser[] = users.value.filter((user: IUser) => user.username === userForm.username)
     if (user.length) {
       store.dispatch('SET_MENUS', user[0].roles);
       store.dispatch('SET_USER', user[0]);
@@ -69,7 +69,8 @@ const onLoginClicked = () => {
   .content {
     @include columnFlex();
     align-items: center;
-    gap: 50px;
+    justify-content: center;
+    gap: 30px;
     height: 100%;
     width: 100%;
     max-width: 400px;
@@ -86,8 +87,8 @@ const onLoginClicked = () => {
       align-items: center;
 
       .login-btn {
-        width: 100%;
-        height: 30px;
+        width: 240px;
+        height: 35px;
       }
     }
   }
