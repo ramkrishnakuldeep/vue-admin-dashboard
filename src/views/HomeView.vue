@@ -46,6 +46,7 @@ const onLogout = () => {
     font-size: 1.25rem;
     background-color: var(--header-background);
     text-transform: uppercase;
+    position: relative;
 
     .logout {
       @include centeredFlex();
@@ -54,8 +55,7 @@ const onLogout = () => {
       color: orange;
       height: 35px;
       position: absolute;
-      right: 16px;
-      transform: translateX(-50%);
+      right: 10px;
       gap: 10px;
 
       .username {
