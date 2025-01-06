@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import store from '@/store';
 import { ROLES, MENUS } from '@/utils/enum';
-import { ref, watch } from 'vue';
+import { toRef } from 'vue';
 import { computed } from 'vue';
 
 
@@ -9,13 +9,11 @@ const props = defineProps<{ role: ROLES }>();
 
 const rolePermissions = computed(() => store.state.rolePermissions);
 
-const roleForm = ref(rolePermissions.value[props.role]);
+const roleForm = toRef(() => rolePermissions.value[props.role]);
 
 const submitConfig = () => {
   store.dispatch('SET_ROLE_PERMISSION', { role: props.role, data: roleForm.value });
 }
-
-watch(() => [props.role], ([role]) => roleForm.value = rolePermissions.value[role]);
 
 </script>
 
